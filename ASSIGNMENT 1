@@ -1,0 +1,251 @@
+#include <stdio.h>
+
+void set_union(int *p , int *q, int s1, int s2)
+{
+  int i,j,k=0 , l;
+  int c[30];
+  for(int i=0; i<(s1 + s2); i++)
+  {
+    c[i] = 0;
+  }
+  for(int i=0;i<s1;i++)
+  {
+    c[k] = p[i];
+    k++;
+  }
+  for( i=0;i<s2; i++)
+  {
+    l=0;
+    for( j=0; j<s1; j++)
+    {
+      if(q[i] == p[j])
+      {
+        l = 1;
+        break;
+      }
+    }
+    if(l == 0)
+    {
+      c[k] = q[i];
+      k++;
+    }
+  }
+  printf("\n\nThe Union of Sets A and B is :\n { ");
+  for(int i=0; i<k ; i++)
+  {
+    printf("%d ", c[i]);
+  }
+  printf(" }\n");
+}
+
+void intersection(int *r , int *s, int s1, int s2)
+{
+  int i, j, k=0 , c[30];
+  printf("\nThe Intersection of Set A and Set B is :\nSet C = { ");
+  for( i=0; i<s1; i++)
+  {
+    for( j=0 ;j<s2 ; j++)
+    {
+      if(r[i] == s[j])
+     {
+       printf("%d ", s[j]);
+     }
+     else continue;
+    }
+  }
+  printf(" }\n");
+  
+}
+
+void difference(int *p, int *q, int s1, int s2, int ch)
+{
+  int i,j,k=0,l;
+  int c[30];
+  if(ch == 1) 
+  {
+   for( i=0;i<s1; i++)
+   {
+     l=0;
+     for( j=0; j<s2; j++)
+     {
+      if(p[i] == q[j])
+      {
+        l = 1;
+        break;
+      }
+    }
+    if(l == 0)
+    {
+      c[k] = p[i];
+      k++;
+    }
+  }
+  printf("\nThe Difference of Set A-B is :\nSet D = { ");
+  for(int i=0; i<k; i++)
+  {
+    printf("%d ", c[i]);
+  }
+  printf(" }\n");
+  
+}
+else if(ch == 2) {
+  for( i=0;i<s2; i++)
+  {
+    l=0;
+    for( j=0; j<s1; j++)
+    {
+      if(q[i] == p[j])
+      {
+        l = 1;
+        break;
+      }
+    }
+    if(l == 0)
+    {
+      c[k] = q[i];
+      k++;
+    }
+  }
+
+  printf("\nThe Difference of Set B-A is :\nSet D = { ");
+  for(int i=0; i<k; i++)
+  {
+    printf("%d ", c[i]);
+  }
+  printf(" }\n");
+  }
+}
+
+void sym_difference(int *p, int *q, int s1, int s2)
+{
+   int i,j,k=0, m=0, l ;
+   int c1[30], c2[30], ans[30];
+   for( i=0;i<s1; i++)
+   {
+     l=0;
+     for( j=0; j<s2; j++)
+     {
+       if(p[i] == q[j])
+     {
+       l = 1;
+       break;
+     }
+    }
+  if(l == 0)
+  {
+    c1[k] = p[i];
+    k++;
+  }
+}
+for( i=0;i<s2; i++)
+{
+  l=0;
+  for( j=0; j<s1; j++)
+  {
+    if(q[i] == p[j])
+  {
+  l = 1;
+  break;
+}
+}
+if(l == 0)
+{
+  c2[m] = q[i];
+  m++;
+}
+}
+ for(int i=0; i<(k+m); i++)
+ {
+  ans[i] = 0;
+ }
+
+int n=0;
+
+for(int i=0; i<(k); i++)
+{
+  ans[n] = c1[i];
+  n++;
+}
+for(int i=0; i<(m); i++)
+{
+  ans[n] = c2[i];
+  n++;
+}
+printf("\nThe Symmetric Difference of Set A and B is :\nSet E = { ");
+for(int i=0; i<n; i++)
+{
+  printf("%d ", ans[i]);
+}
+printf(" }\n");
+
+}
+
+int main(void) 
+{
+  int a[30], b[30], choice;
+  int size1, size2;
+  while(1)
+  {
+    printf("\nSET Operations :\nCreate Sets (1)\nDisplay Sets (2)\nUnion (3)\nIntersection (4)\nDifference (5)\nSymmetric Difference (6)\nEXIT (7)\nEnter your choice :\n");
+    scanf("%d", &choice);
+    
+   switch(choice)
+   {
+    case 1 : {
+    printf("\nEnter Size of Array A :\n");
+    scanf("%d", &size1);
+    printf("\nEnter elements of Array A :\n");
+    for(int i=0;i<size1; i++)
+    {
+      scanf("%d", &a[i]);
+    }
+    printf("\nEnter Size of Array B :\n");
+    scanf("%d", &size2);
+    printf("\nEnter elements of Array B :\n");
+    for(int i=0;i<size2; i++)
+    {
+      scanf("%d", &b[i]);
+    }
+    break;
+}
+   case 2 : {
+    printf("\nThe two sets are :\nSet A = { ");
+    for(int i=0; i<size1;i++)
+    {
+      printf("%d ", a[i]);
+    }
+    printf("}\nSet B = { ");
+    for(int i=0; i<size2;i++)
+    {
+      printf("%d ", b[i]);
+    }
+    printf("}\n");
+
+    break;
+  }
+  case 3 : 
+    set_union(a, b, size1, size2);
+  break;
+  case 4 : 
+    intersection(a, b, size1, size2);
+  break;
+  case 5 : 
+  {
+    int choice;
+    printf("\nEnter Choice to perform Difference of :\nEnter (1) to perform A-B \nEnter (2) to perform B-A (2)\n");
+    scanf("%d", &choice);
+    difference(a, b, size1, size2, choice);
+    break; 
+  }
+  case 6 : 
+    sym_difference(a, b, size1, size2);
+    break;
+  case 7 : 
+    return 0;
+  default :
+  { 
+    printf("\nEnter Valid Choice ....\n");
+  }
+  }
+  }
+}
